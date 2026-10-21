@@ -1,0 +1,8 @@
+node_modules/
+server/
+dist/
+*.mcpb
+.env
+.env.*
+token.json
+.DS_Store

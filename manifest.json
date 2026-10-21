@@ -1,0 +1,51 @@
+{
+  "manifest_version": "0.3",
+  "name": "forms-connector",
+  "display_name": "Forms Connector",
+  "version": "0.1.0",
+  "description": "Create Google Forms, add questions, and read responses from Claude.",
+  "long_description": "A local connector that lets Claude create and edit Google Forms and read their responses. It runs entirely on your computer. You sign in with your own Google OAuth client (bring your own client), and the sign-in token is stored only on this machine. Not affiliated with Google or Anthropic.",
+  "author": { "name": "Joseph McPartland", "url": "https://github.com/jmcpartland" },
+  "license": "MIT",
+  "homepage": "https://github.com/jmcpartland/forms-connector",
+  "repository": { "type": "git", "url": "https://github.com/jmcpartland/forms-connector.git" },
+  "support": "https://github.com/jmcpartland/forms-connector/issues",
+  "keywords": ["google-forms", "forms", "mcp"],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${user_config.client_id}",
+        "GOOGLE_CLIENT_SECRET": "${user_config.client_secret}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "create_form", "description": "Create a new Google Form" },
+    { "name": "get_form", "description": "Fetch a form's questions and settings" },
+    { "name": "add_question", "description": "Add a question to a form" },
+    { "name": "list_responses", "description": "List submitted responses" }
+  ],
+  "user_config": {
+    "client_id": {
+      "type": "string",
+      "title": "Google OAuth Client ID",
+      "description": "From your own Google Cloud project (OAuth client type: Desktop app). See the bring-your-own-client guide.",
+      "required": true
+    },
+    "client_secret": {
+      "type": "string",
+      "title": "Google OAuth Client Secret",
+      "description": "From the same OAuth client. Stored in your operating system's secure storage by Claude Desktop.",
+      "required": true,
+      "sensitive": true
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin", "win32"],
+    "runtimes": { "node": ">=18.0.0" }
+  }
+}
