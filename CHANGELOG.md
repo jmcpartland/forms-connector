@@ -9,6 +9,14 @@ All notable changes to this project are documented here. The format follows [Kee
 - Clear error when the Google Forms API isn't enabled in the user's Cloud project (`403 accessNotConfigured`).
 - Community files: code of conduct, issue and pull request templates.
 
+### Security
+- Sign-in listener validates the `Host` header, method and `state`, and ignores stray requests instead of aborting.
+- Verify Google granted all requested scopes.
+- Token file written atomically with permissions re-tightened on every save.
+- Form IDs validated before use in URLs; 30s timeout on all network calls.
+- Tool descriptions flag returned form text as untrusted data.
+- CI: actions pinned to commit SHAs, CodeQL, production `npm audit` gate, `--ignore-scripts`; releases carry build-provenance attestations.
+
 ### Changed
 - Concurrent tool calls now share a single sign-in instead of opening several browser windows.
 - Sign-in timeout error now includes the sign-in link in case no browser tab opened.
