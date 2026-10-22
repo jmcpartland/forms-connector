@@ -5,7 +5,7 @@ import { questionLabels, readableResponses } from "../src/responses.ts";
 const form = {
   items: [
     { title: "Name", questionItem: { question: { questionId: "q1" } } },
-    { title: "Fruit", questionItem: { question: { questionId: "q2" } } },
+    { title: "Fruit", questionItem: { question: { questionId: "q2", grading: { pointValue: 1 } } } },
     { title: "Name", questionItem: { question: { questionId: "q3" } } },
     { title: "Grid", questionGroupItem: { questions: [{ questionId: "r1", rowQuestion: { title: "Row A" } }] } },
   ],
@@ -46,4 +46,21 @@ test("responses are keyed by question text", () => {
 test("minimal responses omit optional fields", () => {
   const [r] = readableResponses(form, [{ responseId: "r", createTime: "t1", answers: {} }]);
   assert.deepEqual(r, { responseId: "r", submittedAt: "t1", answers: {} });
+});
+
+test("wrong answers (grade {}) are graded 0; ungraded and skipped questions get no grade", () => {
+  const [r] = readableResponses(form, [
+    {
+      responseId: "r",
+      createTime: "t",
+      totalScore: 0,
+      answers: {
+        q1: { grade: {}, textAnswers: { answers: [{ value: "Ada" }] } }, // ungraded question
+        q2: { grade: {}, textAnswers: { answers: [{ value: "wrong" }] } }, // graded, wrong
+        q3: { grade: {} }, // skipped
+      },
+    },
+  ]);
+  assert.deepEqual(r.answers, { Name: "Ada", Fruit: "wrong" });
+  assert.deepEqual(r.grades, { Fruit: { score: 0, correct: false } });
 });

@@ -21,9 +21,20 @@ export function questionLabels(form: Json): Map<string, string> {
   return labels;
 }
 
+/** IDs of questions that carry quiz grading (Google omits `grade` defaults, so `{}` alone is ambiguous). */
+function gradedQuestionIds(form: Json): Set<string> {
+  const ids = new Set<string>();
+  for (const item of form.items ?? []) {
+    const q = item.questionItem?.question;
+    if (q?.grading && q.questionId) ids.add(q.questionId);
+  }
+  return ids;
+}
+
 /** Reshape raw Forms API responses so answers are keyed by question text instead of question ID. */
 export function readableResponses(form: Json, responses: Json[]): Json[] {
   const labels = questionLabels(form);
+  const graded = gradedQuestionIds(form);
   return responses.map((r) => {
     const answers: Json = {};
     const grades: Json = {};
@@ -33,8 +44,11 @@ export function readableResponses(form: Json, responses: Json[]): Json[] {
         a.textAnswers?.answers?.map((x: Json) => x.value) ??
         a.fileUploadAnswers?.answers?.map((x: Json) => `${x.fileName} (Drive file ${x.fileId})`) ??
         [];
+      if (!values.length) continue; // skipped questions come back as empty entries
       answers[label] = values.length === 1 ? values[0] : values;
-      if (a.grade) grades[label] = { score: a.grade.score ?? 0, correct: a.grade.correct ?? false };
+      // Google omits false/0 grade fields, so a wrong answer arrives as `grade: {}`.
+      if (graded.has(qid))
+        grades[label] = { score: a.grade?.score ?? 0, correct: a.grade?.correct ?? false };
     }
     return {
       responseId: r.responseId,
