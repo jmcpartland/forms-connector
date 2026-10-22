@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-22
+
 ### Added
 - Edit forms: `update_question`, `delete_item`, `move_item`, `update_form_info`.
 - `add_questions` to add many questions and sections in one call (validated together, applied atomically).
@@ -24,6 +26,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - CI: actions pinned to commit SHAs, CodeQL, production `npm audit` gate, `--ignore-scripts`; releases carry build-provenance attestations.
 
 ### Changed
+- `list_responses` defaults to answers keyed by question text; pass `format: "raw"` for the previous shape.
 - Concurrent tool calls now share a single sign-in instead of opening several browser windows.
 - Sign-in timeout error now includes the sign-in link in case no browser tab opened.
 - `scale` questions reject a `scale_high` that isn't greater than `scale_low`.
