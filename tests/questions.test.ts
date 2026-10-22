@@ -43,3 +43,27 @@ test("scale validates its bounds", () => {
   assert.throws(() => buildQuestion({ type: "scale", required: false }), /scale_low/);
   assert.throws(() => buildQuestion({ type: "scale", required: false, scale_low: 3, scale_high: 3 }), /greater/);
 });
+
+test("graded choice question gets points and correct answers", () => {
+  const q = buildQuestion({ type: "multiple_choice", required: false, options: ["a", "b"], correct_answers: ["b"], points: 3 });
+  assert.deepEqual(q.grading, { pointValue: 3, correctAnswers: { answers: [{ value: "b" }] } });
+});
+
+test("points default to 1 when correct answers are given", () => {
+  const q = buildQuestion({ type: "short_text", required: false, correct_answers: ["Paris"] });
+  assert.equal((q.grading as any).pointValue, 1);
+});
+
+test("grading validates answers against options and question type", () => {
+  const base = { required: false, options: ["a", "b"] };
+  assert.throws(() => buildQuestion({ ...base, type: "dropdown", correct_answers: ["z"] }), /not found/);
+  assert.throws(() => buildQuestion({ ...base, type: "multiple_choice", correct_answers: ["a", "b"] }), /exactly one/);
+  assert.doesNotThrow(() => buildQuestion({ ...base, type: "checkboxes", correct_answers: ["a", "b"] }));
+  assert.throws(() => buildQuestion({ ...base, type: "dropdown", points: 2 }), /correct_answers/);
+  assert.throws(() => buildQuestion({ type: "scale", required: false, scale_low: 1, scale_high: 5, points: 1 }), /can't be graded/);
+  assert.throws(() => buildQuestion({ type: "paragraph", required: false, correct_answers: ["x"] }), /manually/);
+});
+
+test("ungraded questions have no grading block", () => {
+  assert.equal(buildQuestion({ type: "short_text", required: false }).grading, undefined);
+});
