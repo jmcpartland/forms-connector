@@ -26,7 +26,8 @@
   "tools": [
     { "name": "create_form", "description": "Create a new Google Form" },
     { "name": "get_form", "description": "Fetch a form's questions and settings" },
-    { "name": "add_question", "description": "Add a question to a form" },
+    { "name": "add_question", "description": "Add a question to a form (with optional quiz grading)" },
+    { "name": "update_form_settings", "description": "Turn quiz mode on or off" },
     { "name": "list_responses", "description": "List submitted responses" }
   ],
   "user_config": {

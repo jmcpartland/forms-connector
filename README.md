@@ -13,7 +13,8 @@ Forms Connector is a small, local extension for **Claude Desktop** (macOS and Wi
 | --- | --- |
 | `create_form` | Create a new form with a title and optional description |
 | `get_form` | Read a form's title, description and questions |
-| `add_question` | Add a question: short text, paragraph, multiple choice, checkboxes, dropdown, or 1–N scale |
+| `add_question` | Add a question: short text, paragraph, multiple choice, checkboxes, dropdown, or 1–N scale; optionally with quiz correct answers and points |
+| `update_form_settings` | Turn quiz mode on or off |
 | `list_responses` | Read submitted responses |
 
 Not supported yet: listing your existing forms (the Forms API can't do this without Drive access), editing or deleting existing questions, and changing a form's title after creation.

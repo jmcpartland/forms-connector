@@ -323,7 +323,7 @@ server.registerTool(
   {
     title: "Add a question to a form",
     description:
-      "Add one question to an existing form. For multiple_choice, checkboxes and dropdown, provide options. For scale, provide scale_low and scale_high.",
+      "Add one question to an existing form. For multiple_choice, checkboxes and dropdown, provide options. For scale, provide scale_low and scale_high. For quizzes, set correct_answers and points.",
     inputSchema: {
       form_id: formId,
       title: z.string().describe("The question text"),
@@ -335,6 +335,11 @@ server.registerTool(
       scale_low_label: z.string().optional(),
       scale_high_label: z.string().optional(),
       index: z.number().int().min(0).optional().describe("Position to insert at (default: end of form)"),
+      points: z.number().int().min(0).max(100).optional().describe("Quiz: points for a correct answer (default 1 when correct_answers is set)"),
+      correct_answers: z
+        .array(z.string())
+        .optional()
+        .describe("Quiz: correct answer(s). Choice questions need exact option text (one answer, except checkboxes). The form must be a quiz first (update_form_settings)."),
     },
     annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
   },
@@ -359,6 +364,29 @@ server.registerTool(
         ],
       });
       return ok(`Added "${a.title}" at position ${index}.`);
+    } catch (e) {
+      return fail(e);
+    }
+  }
+);
+
+server.registerTool(
+  "update_form_settings",
+  {
+    title: "Update form settings",
+    description:
+      "Turn quiz mode on or off for a form. A form must be a quiz before add_question can set correct answers and points.",
+    inputSchema: { form_id: formId, is_quiz: z.boolean().describe("true to make the form a quiz") },
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  },
+  async ({ form_id, is_quiz }) => {
+    try {
+      await forms("POST", `/${encodeURIComponent(form_id)}:batchUpdate`, {
+        requests: [
+          { updateSettings: { settings: { quizSettings: { isQuiz: is_quiz } }, updateMask: "quizSettings.isQuiz" } },
+        ],
+      });
+      return ok(`Quiz mode is now ${is_quiz ? "on" : "off"}.`);
     } catch (e) {
       return fail(e);
     }

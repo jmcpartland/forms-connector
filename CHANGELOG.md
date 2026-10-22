@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Quiz support: `update_form_settings` tool (quiz mode on/off) and `correct_answers` / `points` on `add_question`.
 - Unit tests (`npm test`) for question mapping, token expiry and error formatting.
 - Clear error when the Google Forms API isn't enabled in the user's Cloud project (`403 accessNotConfigured`).
 - Community files: code of conduct, issue and pull request templates.
