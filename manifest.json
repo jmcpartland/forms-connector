@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "forms-connector",
   "display_name": "Forms Connector",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create Google Forms, add questions, and read responses from Claude.",
   "long_description": "A local connector that lets Claude create and edit Google Forms and read their responses. It runs entirely on your computer. You sign in with your own Google OAuth client (bring your own client), and the sign-in token is stored only on this machine. Not affiliated with Google or Anthropic.",
   "author": { "name": "Joseph McPartland", "url": "https://github.com/jmcpartland" },
@@ -25,10 +25,16 @@
   },
   "tools": [
     { "name": "create_form", "description": "Create a new Google Form" },
-    { "name": "get_form", "description": "Fetch a form's questions and settings" },
-    { "name": "add_question", "description": "Add a question to a form (with optional quiz grading)" },
+    { "name": "get_form", "description": "Fetch a form's questions, settings and item IDs" },
+    { "name": "add_question", "description": "Add one question or section (with optional quiz grading)" },
+    { "name": "add_questions", "description": "Add many questions and sections in one call" },
+    { "name": "update_question", "description": "Edit an existing question or section" },
+    { "name": "delete_item", "description": "Delete a question or section" },
+    { "name": "move_item", "description": "Reorder a question or section" },
+    { "name": "update_form_info", "description": "Change a form's title or description" },
     { "name": "update_form_settings", "description": "Turn quiz mode on or off" },
-    { "name": "list_responses", "description": "List submitted responses" }
+    { "name": "set_accepting_responses", "description": "Open or close a form to responses" },
+    { "name": "list_responses", "description": "List responses with answers keyed by question text" }
   ],
   "user_config": {
     "client_id": {

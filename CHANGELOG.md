@@ -5,6 +5,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Edit forms: `update_question`, `delete_item`, `move_item`, `update_form_info`.
+- `add_questions` to add many questions and sections in one call (validated together, applied atomically).
+- `set_accepting_responses` to open or close a form.
+- New question types `date`, `time` and `section` (page break), plus question descriptions, shuffled choices and an "Other" choice.
+- `list_responses` returns answers keyed by question text by default (`format: "raw"` restores the previous shape) and includes quiz grades and scores.
 - Quiz support: `update_form_settings` tool (quiz mode on/off) and `correct_answers` / `points` on `add_question`.
 - Unit tests (`npm test`) for question mapping, token expiry and error formatting.
 - Clear error when the Google Forms API isn't enabled in the user's Cloud project (`403 accessNotConfigured`).

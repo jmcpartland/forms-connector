@@ -4,7 +4,7 @@ Let Claude create and edit **Google Forms** and read their responses.
 
 Forms Connector is a small, local extension for **Claude Desktop** (macOS and Windows). It runs on your own computer, signs in to *your* Google account, and talks directly to the Google Forms API. Nothing is sent to any server run by this project.
 
-> **Status: early (v0.1).** Works end to end in testing. Expect rough edges.
+> **Status: early (v0.2).** Works end to end in testing. Expect rough edges.
 > Not affiliated with, endorsed by, or sponsored by Google or Anthropic.
 
 ## What Claude can do with it
@@ -12,12 +12,18 @@ Forms Connector is a small, local extension for **Claude Desktop** (macOS and Wi
 | Tool | What it does |
 | --- | --- |
 | `create_form` | Create a new form with a title and optional description |
-| `get_form` | Read a form's title, description and questions |
-| `add_question` | Add a question: short text, paragraph, multiple choice, checkboxes, dropdown, or 1–N scale; optionally with quiz correct answers and points |
+| `get_form` | Read a form's title, description, questions and item IDs |
+| `add_question` | Add a question or section: short text, paragraph, multiple choice, checkboxes, dropdown, 1–N scale, date, time. Supports descriptions, shuffled choices, an "Other" choice, and quiz correct answers and points |
+| `add_questions` | Add many questions and sections in one call |
+| `update_question` | Edit an existing question or section (text, options, required, grading) |
+| `delete_item` | Delete a question or section |
+| `move_item` | Reorder a question or section |
+| `update_form_info` | Change a form's title or description |
 | `update_form_settings` | Turn quiz mode on or off |
-| `list_responses` | Read submitted responses |
+| `set_accepting_responses` | Open or close a form to responses |
+| `list_responses` | Read submitted responses, with answers keyed by question text (or raw, keyed by question ID) |
 
-Not supported yet: listing your existing forms (the Forms API can't do this without Drive access), editing or deleting existing questions, and changing a form's title after creation.
+Not supported yet: listing your existing forms (the Forms API can't do this without Drive access), file-upload and grid questions, changing a question's type in place (delete and re-add it instead), and response validation rules (the Forms API doesn't expose them).
 
 ## Install (about 10 minutes, one time)
 
