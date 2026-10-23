@@ -1,6 +1,6 @@
 # Privacy
 
-*Draft. Review before publishing, and keep it accurate as the code changes.*
+*Keep this accurate as the code changes.*
 
 Forms Connector runs locally on your computer. The project's maintainers operate **no servers** for it and receive **no data** from it: no analytics, no telemetry, no crash reports.
 
