@@ -33,7 +33,7 @@ npm run build       # typecheck + tests + bundle + `mcpb validate` + `mcpb pack`
 - Anthropic's connector directory has deprecated MCPB listings (check current docs); direct distribution via GitHub Releases is the plan.
 
 ## Status
-- v0.2.0 released (GitHub Releases, with checksum and build-provenance attestation). All 11 tools verified live against the real Forms API; 35 unit tests; CI = build + CodeQL, both required on `main`.
+- v0.2.1 released (GitHub Releases, with checksum and build-provenance attestation). All 11 tools verified live against the real Forms API; 35 unit tests; CI = build + CodeQL, both required on `main`.
 - Forms API limits to remember: no response-validation fields; no listing of existing forms or file-upload questions without a Drive scope; `grade: {}` in a response means "wrong", since Google omits false/0 fields.
 - Unverified: Windows (browser launch via `cmd /c start`, token-file permissions).
 

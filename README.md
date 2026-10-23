@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/icon.png" alt="Forms Connector icon" width="120"></p>
+
 # Forms Connector
 
 Let Claude create and edit **Google Forms** and read their responses.
@@ -24,6 +26,10 @@ Forms Connector is a small, local extension for **Claude Desktop** (macOS and Wi
 | `list_responses` | Read submitted responses, with answers keyed by question text (or raw, keyed by question ID) |
 
 Not supported yet: listing your existing forms (the Forms API can't do this without Drive access), file-upload and grid questions, changing a question's type in place (delete and re-add it instead), and response validation rules (the Forms API doesn't expose them).
+
+A form built entirely from a chat request, as respondents see it (descriptions, an "Other" choice, shuffled options, a dropdown, and a labelled scale):
+
+<p align="center"><img src="assets/screenshot-form.png" alt="A Google Form created by Claude through Forms Connector" width="420"></p>
 
 ## Install (about 10 minutes, one time)
 

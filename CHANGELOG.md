@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-22
+
+### Added
+- Extension icon and a screenshot in the manifest and README.
+
+### Changed
+- Windows: open the sign-in page with `rundll32 url.dll,FileProtocolHandler` instead of `cmd /c start`, avoiding shell quoting of the URL. Not yet verified on a Windows machine.
+
 ## [0.2.0] - 2026-10-22
 
 ### Added
