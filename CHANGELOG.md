@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-10-28
+
+### Changed
+- Updated the MCP SDK to 1.32.2.
+
+### Security
+- Lockfile: body-parser 2.4.0 (GHSA-27r3-jxmh-p828).
+- CI: updated pinned actions (checkout, setup-node, CodeQL, build-provenance attestation) and grouped CodeQL updates in Dependabot.
+
 ## [0.2.1] - 2026-10-22
 
 ### Added
