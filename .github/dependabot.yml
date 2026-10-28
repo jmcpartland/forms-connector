@@ -6,3 +6,7 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: weekly }
+    groups:
+      # init and analyze must always be the same version, so update them together.
+      codeql-action:
+        patterns: ["github/codeql-action/*"]
